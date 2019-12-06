@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize] // wszystkie w ValuesController musi byc auhtorized request (czyli tokenen authorizowane)
     [ApiController]
     [Route("api/[controller]")]
         public class ValuesController : ControllerBase
@@ -29,6 +31,7 @@ namespace DatingApp.API.Controllers
             }
 
             //GET api/value/5
+            [AllowAnonymous] //mozna pobrac wartosc id bez autoryzacji
             [HttpGet("{id}")]
             public async Task<IActionResult> GetValue(int id)
             {
